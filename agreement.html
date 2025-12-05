@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src * data: blob:; frame-src *; style-src * 'unsafe-inline';">
+    <title>Exclusive Ohio Investment Properties</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 650px; margin: 0 auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 30px; text-align: center; }
+        .header h1 { margin: 0 0 10px 0; font-size: 28px; }
+        .content { padding: 30px; }
+        .highlight { background: #f8f9ff; border-left: 4px solid #667eea; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .highlight h3 { margin-top: 0; color: #667eea; }
+        .form-section { background: #fafafa; border: 2px solid #e0e0e0; border-radius: 8px; padding: 25px; margin: 30px 0; }
+        .form-section h2 { color: #333; font-size: 20px; margin-top: 0; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 14px; }
+        .checkbox-label { display: flex; align-items: flex-start; margin: 10px 0; font-size: 14px; }
+        .checkbox-label input { width: auto; margin-right: 10px; margin-top: 3px; cursor: pointer; }
+        .btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
+        .btn:hover { opacity: 0.9; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; }
+        .properties { display: none; margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 8px; }
+        .properties h2 { color: #333; text-align: center; margin-bottom: 25px; font-size: 24px; }
+        .property { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .property h3 { color: #667eea; margin: 0 0 12px 0; font-size: 18px; }
+        .property-details { margin: 8px 0; color: #555; font-size: 14px; line-height: 1.5; }
+        .badge { display: inline-block; background: #ff6b6b; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
+        .badge.new { background: #51cf66; }
+        .property-link { display: inline-block; margin-top: 12px; padding: 10px 20px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; }
+        .success { display: none; background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; font-weight: bold; }
+        .error { display: none; background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+        .loading { display: none; text-align: center; padding: 20px; }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #667eea; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .contact-box { margin-top: 30px; padding: 20px; background: white; border-radius: 8px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 Exclusive Ohio Investment Properties</h1>
+            <p>Fresh Listings & Price Reductions - Ready for Your Review</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <p><strong>Hello!</strong></p>
+                <p>I've compiled the latest investment opportunities across Ohio. These include new listings, recent price reductions, and back-on-market properties with strong potential returns.</p>
+            </div>
+            
+            <div class="highlight">
+                <h3>🎯 What You'll Find</h3>
+                <ul>
+                    <li><strong>300+ Properties</strong> across Central Ohio markets</li>
+                    <li><strong>Price Range:</strong> $209K - $350K (4+ bedrooms)</li>
+                    <li><strong>Property Types:</strong> Single-family, multi-family, mixed-use</li>
+                    <li><strong>Fresh Data:</strong> Updated within the last 24 hours</li>
+                </ul>
+            </div>
+            
+            <div class="form-section">
+                <h2>📝 Sign Agreement to View Full Property List</h2>
+                <p style="margin-bottom: 20px; color: #666; font-size: 14px;">To access the complete portfolio, please sign the intermediary agreement below.</p>
+                
+                <div class="error" id="errorMsg"></div>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Processing your agreement...</p>
+                </div>
+                
+                <form id="agreementForm">
+                    <div class="form-group">
+                        <label>Your Full Name *</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Agreement Type *</label>
+                        <select id="exclusivity" required>
+                            <option value="">Select...</option>
+                            <option value="non-exclusive">Non-Exclusive (Work with multiple finders)</option>
+                            <option value="exclusive">Exclusive (Work with me only)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="checkbox-label">
+                        <input type="checkbox" id="c1" required>
+                        <span>I acknowledge 3% intermediary fee upon successful closing</span>
+                    </div>
+                    <div class="checkbox-label">
+                        <input type="checkbox" id="c2" required>
+                        <span>I understand the 180-day protected period</span>
+                    </div>
+                    <div class="checkbox-label">
+                        <input type="checkbox" id="c3" required>
+                        <span>I will conduct my own due diligence</span>
+                    </div>
+                    <div class="checkbox-label">
+                        <input type="checkbox" id="c4" required>
+                        <span>I agree to the full Intermediary Fee Agreement terms</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Electronic Signature (Type your full name) *</label>
+                        <input type="text" id="signature" placeholder="Type your full name to sign" required>
+                    </div>
+                    
+                    <p style="font-size: 12px; color: #888; font-style: italic; margin: 15px 0;">By signing, you agree to the Real Estate Intermediary Fee Agreement terms</p>
+                    
+                    <button type="submit" class="btn" id="submitBtn">Sign Agreement & View All Properties →</button>
+                </form>
+            </div>
+            
+            <div class="success" id="success">
+                ✅ Agreement Signed Successfully! You'll receive a confirmation email shortly. Scroll down to view all properties.
+            </div>
+            
+            <div class="properties" id="props">
+                <h2>🔓 Your Exclusive Ohio Property Portfolio</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 30px;">300+ Investment Opportunities</p>
+                
+                <div class="property">
+                    <span class="badge new">NEW LISTING - 1 HOUR AGO</span>
+                    <h3>📍 4581 Opossum Run Road, Bellville, OH 44813</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $289,900<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>MLS #:</strong> 225044807<br>
+                        <strong>Status:</strong> New Listing
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251204175927528528000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <span class="badge new">NEW LISTING - 3 HOURS AGO</span>
+                    <h3>📍 357 Sabo Drive, Mansfield, OH 44905</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $244,900<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>MLS #:</strong> 225044794<br>
+                        <strong>Status:</strong> New Listing
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251204193108202106000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <span class="badge">PRICE REDUCED - 5 HOURS AGO</span>
+                    <h3>📍 5930 Parkglen Road, Galloway, OH 43119</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $275,000<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>MLS #:</strong> 225043403<br>
+                        <strong>Status:</strong> Active - Recent Price Drop
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251118182556866478000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <span class="badge">PRICE REDUCED - 6 HOURS AGO</span>
+                    <h3>📍 3291 Yozuri Drive, Columbus, OH 43232</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $309,900<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 5<br>
+                        <strong>MLS #:</strong> 225044455<br>
+                        <strong>Status:</strong> Active - Recent Price Drop
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251201212052028259000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <h3>📍 221 S Yale Avenue, Columbus, OH 43222</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $250,000<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>Neighborhood:</strong> Franklinton<br>
+                        <strong>MLS #:</strong> 225044114<br>
+                        <strong>Status:</strong> Active
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251124214112483587000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <span class="badge new">NEW LISTING - 7 HOURS AGO</span>
+                    <h3>📍 1612 Green Friar Drive, Columbus, OH 43228</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $294,900<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>Neighborhood:</strong> Nottingham<br>
+                        <strong>MLS #:</strong> 225044751<br>
+                        <strong>Status:</strong> New Listing
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251204134737457092000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <span class="badge">PRICE REDUCED</span>
+                    <h3>📍 220 N Monroe Avenue, Columbus, OH 43203</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $339,000<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>MLS #:</strong> 225040078<br>
+                        <strong>Status:</strong> Active - Price Reduced
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251021162421546206000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <span class="badge">PRICE REDUCED</span>
+                    <h3>📍 650 E 3rd Avenue, Columbus, OH 43201</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $309,000<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>MLS #:</strong> 225043837<br>
+                        <strong>Status:</strong> Active - Price Reduced
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251121172451588327000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <span class="badge new">NEW LISTING - 1 DAY AGO</span>
+                    <h3>📍 2205 Lexington Avenue, Columbus, OH 43211</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $209,900<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>Neighborhood:</strong> Grasmere Gardens<br>
+                        <strong>MLS #:</strong> 225044675<br>
+                        <strong>Status:</strong> New Listing - GREAT VALUE
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251203171027737453000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <h3>📍 1543 S Hamilton Road, Columbus, OH 43227</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $243,900<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>MLS #:</strong> 225042242<br>
+                        <strong>Status:</strong> Active
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251030153730083035000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <h3>📍 1018 Sherwood Loop, Bellefontaine, OH 43311</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $349,102<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>Neighborhood:</strong> Ludlow Ridge<br>
+                        <strong>MLS #:</strong> 225044111<br>
+                        <strong>Status:</strong> Active - Floor Plan Available
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251125151236433536000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <h3>📍 993 Sherwood Loop, Bellefontaine, OH 43311</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $347,900<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>Neighborhood:</strong> Ludlow Ridge<br>
+                        <strong>MLS #:</strong> 225035313<br>
+                        <strong>Status:</strong> Active - Floor Plan Available
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20250917173216478685000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <h3>📍 41 Wendell Road SW, Etna, OH 43068</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $349,999<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>Neighborhood:</strong> Russell Heights<br>
+                        <strong>MLS #:</strong> 225043868<br>
+                        <strong>Status:</strong> Active
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251112193546951126000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <span class="badge new">NEW LISTING</span>
+                    <h3>📍 12635 Clark Drive, Orient, OH 43146</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $350,000<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>Neighborhood:</strong> Clark Lakes Shores<br>
+                        <strong>MLS #:</strong> 225044723<br>
+                        <strong>Status:</strong> New Listing
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251203232619529558000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div class="property">
+                    <span class="badge new">NEW LISTING</span>
+                    <h3>📍 6458 Faircrest Road, Columbus, OH 43229</h3>
+                    <div class="property-details">
+                        <strong>Price:</strong> $280,000<br>
+                        <strong>Type:</strong> Single Family Residence<br>
+                        <strong>Bedrooms:</strong> 4<br>
+                        <strong>Neighborhood:</strong> Karls Meadows<br>
+                        <strong>MLS #:</strong> 225044721<br>
+                        <strong>Status:</strong> New Listing
+                    </div>
+                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/email_links/20251201161810356978000000/listings/20251203231312712928000000?contact_id=20251130144211650715000000" class="property-link" target="_blank">View Full Details →</a>
+                </div>
+                
+                <div style="background: white; padding: 25px; margin: 30px 0; border-radius: 8px; border: 2px solid #667eea; text-align: center;">
+                    <h3 style="color: #667eea; margin-top: 0;">📊 Complete Portfolio Access</h3>
+                    <p style="color: #555; margin-bottom: 20px;">This preview shows 15 of 300+ properties. Access the complete spreadsheets:</p>
+                    <a href="https://docs.google.com/spreadsheets/d/YOUR_MAIN_SPREADSHEET_ID/edit" class="property-link" target="_blank" style="font-size: 16px; display: block; margin: 10px 0;">View Complete MLS Property Portfolio (250+ Listings) →</a>
+                    <a href="https://docs.google.com/spreadsheets/d/YOUR_OFFMARKET_SPREADSHEET_ID/edit" class="property-link" target="_blank" style="font-size: 16px; display: block; margin: 10px 0;">View Off-Market Property Portfolio (30+ Listings) →</a>
+                </div>
+                
+                <div class="contact-box">
+                    <h3 style="color: #667eea;">📞 Ready to Schedule Property Tours?</h3>
+                    <p style="color: #555; line-height: 1.6;">
+                        Let's discuss these opportunities and schedule tours for properties that match your investment criteria.<br><br>
+                        <strong>Phone:</strong> (610) 653-1493<br>
+                        <strong>Email:</strong> specula.inc.official@gmail.com<br>
+                        <strong>Response Time:</strong> Within 2 hours during business days
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy70c-gj2AicmkxyyoF79D5tRXGiY9Gm3DGsDxHdgT8DUhyR7g88ZoXGCSZJ7qhd_feQ/exec';
+        
+        document.getElementById('agreementForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const sig = document.getElementById('signature').value.trim();
+            
+            if (sig.toLowerCase() !== name.toLowerCase()) {
+                showError('Signature must match your full name exactly.');
+                return;
+            }
+            
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('errorMsg').style.display = 'none';
+            document.getElementById('submitBtn').disabled = true;
+            
+            const formData = {
+                name: name,
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                exclusivity: document.getElementById('exclusivity').value,
+                signature: sig,
+                userAgent: navigator.userAgent,
+                timestamp: new Date().toISOString()
+            };
+            
+            console.log('Submitting to:', SCRIPT_URL);
+            
+            // Try fetch first
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                console.log('Fetch completed');
+                handleSuccess();
+            } catch (error) {
+                console.log('Fetch method failed, trying iframe method');
+                submitViaIframe(formData);
+            }
+        });
+        
+        function submitViaIframe(formData) {
+            const iframe = document.createElement('iframe');
+            iframe.name = 'hiddenFrame';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = SCRIPT_URL;
+            form.target = 'hiddenFrame';
+            
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'data';
+            input.value = JSON.stringify(formData);
+            form.appendChild(input);
+            
+            document.body.appendChild(form);
+            form.submit();
+            
+            setTimeout(() => {
+                handleSuccess();
+                document.body.removeChild(form);
+                document.body.removeChild(iframe);
+            }, 2000);
+        }
+        
+        function handleSuccess() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+            document.getElementById('props').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('props').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+        
+        function showError(message) {
+            document.getElementById('errorMsg').textContent = message;
+            document.getElementById('errorMsg').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('submitBtn').disabled = false;
+        }
+    </script>
+</body>
+</html>
