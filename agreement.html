@@ -674,6 +674,35 @@
                         <div class="section-helper">Primary geographic investment focus</div>
                     </div>
                     
+                    <div class="price-range">
+                        <div class="form-group">
+                            <label>Minimum Bedrooms *</label>
+                            <select id="minBedrooms" required>
+                                <option value="">Select min...</option>
+                                <option value="1">1+ Bedroom</option>
+                                <option value="2">2+ Bedrooms</option>
+                                <option value="3">3+ Bedrooms</option>
+                                <option value="4">4+ Bedrooms</option>
+                                <option value="5">5+ Bedrooms</option>
+                                <option value="6">6+ Bedrooms</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Minimum Bathrooms *</label>
+                            <select id="minBathrooms" required>
+                                <option value="">Select min...</option>
+                                <option value="1">1+ Bathroom</option>
+                                <option value="1.5">1.5+ Bathrooms</option>
+                                <option value="2">2+ Bathrooms</option>
+                                <option value="2.5">2.5+ Bathrooms</option>
+                                <option value="3">3+ Bathrooms</option>
+                                <option value="3.5">3.5+ Bathrooms</option>
+                                <option value="4">4+ Bathrooms</option>
+                            </select>
+                        </div>
+                    </div>
+                    
                     <div class="section-divider"></div>
                     
                     <div class="form-group">
@@ -777,7 +806,7 @@
             <div style="font-size: 12px; margin-bottom: 15px; opacity: 0.7;">Professional Real Estate Intermediary Services</div>
             <div class="contact-info">
                 <strong>Contact:</strong> (610) 653-1493<br>
-                <strong>Email:</strong> specula.inc.official@gmail.com<br>
+                <strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ea999a8f899f868bc4838489c4858c8c8389838b86aa8d878b8386c4898587">[email&#160;protected]</a><br>
                 <strong>Response:</strong> Within 2 hours (Business Days)
             </div>
             <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(102, 126, 234, 0.2); font-size: 11px; opacity: 0.5;">
@@ -786,7 +815,7 @@
         </div>
     </div>
     
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy70c-gj2AicmkxyyoF79D5tRXGiY9Gm3DGsDxHdgT8DUhyR7g88ZoXGCSZJ7qhd_feQ/exec';
         
         document.getElementById('agreementForm').addEventListener('submit', async function(e) {
@@ -819,6 +848,8 @@
                 exclusivity: document.getElementById('exclusivity').value,
                 investmentType: document.getElementById('investmentType').value,
                 desiredMetro: document.getElementById('desiredMetro').value,
+                minBedrooms: document.getElementById('minBedrooms').value,
+                minBathrooms: document.getElementById('minBathrooms').value,
                 priceMin: priceMin,
                 priceMax: priceMax,
                 priceRange: '$' + (priceMin/1000) + 'K - $' + (priceMax >= 1000000 ? (priceMax/1000000) + 'M' : (priceMax/1000) + 'K'),
@@ -881,10 +912,4 @@
         function showError(message) {
             document.getElementById('errorMsg').textContent = message;
             document.getElementById('errorMsg').style.display = 'block';
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('submitBtn').disabled = false;
-            document.getElementById('errorMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    </script>
-</body>
-</html>
+            document.getElementById('load
