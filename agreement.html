@@ -17,6 +17,9 @@
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
         .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 14px; }
+        .price-range { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .price-range .form-group { margin-bottom: 0; }
+        .price-helper { font-size: 12px; color: #666; margin-top: 5px; }
         .checkbox-label { display: flex; align-items: flex-start; margin: 10px 0; font-size: 14px; }
         .checkbox-label input { width: auto; margin-right: 10px; margin-top: 3px; cursor: pointer; }
         .btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
@@ -58,7 +61,7 @@
                 <h3>🎯 What You'll Find</h3>
                 <ul>
                     <li><strong>300+ Properties</strong> across Central Ohio markets</li>
-                    <li><strong>Price Range:</strong> $209K - $350K (4+ bedrooms)</li>
+                    <li><strong>Price Range:</strong> $80K - $2M (All property types)</li>
                     <li><strong>Property Types:</strong> Single-family, multi-family, mixed-use</li>
                     <li><strong>Fresh Data:</strong> Updated within the last 24 hours</li>
                 </ul>
@@ -102,6 +105,63 @@
                             <option value="non-exclusive">Non-Exclusive (Work with multiple finders)</option>
                             <option value="exclusive">Exclusive (Work with me only)</option>
                         </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>💰 Your Investment Budget Range *</label>
+                        <div class="price-helper">Select your minimum and maximum property price</div>
+                    </div>
+                    
+                    <div class="price-range">
+                        <div class="form-group">
+                            <label>Minimum Price *</label>
+                            <select id="priceMin" required>
+                                <option value="">Select min...</option>
+                                <option value="80000">$80,000</option>
+                                <option value="100000">$100,000</option>
+                                <option value="150000">$150,000</option>
+                                <option value="200000">$200,000</option>
+                                <option value="250000">$250,000</option>
+                                <option value="300000">$300,000</option>
+                                <option value="350000">$350,000</option>
+                                <option value="400000">$400,000</option>
+                                <option value="450000">$450,000</option>
+                                <option value="500000">$500,000</option>
+                                <option value="600000">$600,000</option>
+                                <option value="700000">$700,000</option>
+                                <option value="800000">$800,000</option>
+                                <option value="900000">$900,000</option>
+                                <option value="1000000">$1,000,000</option>
+                                <option value="1250000">$1,250,000</option>
+                                <option value="1500000">$1,500,000</option>
+                                <option value="1750000">$1,750,000</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Maximum Price *</label>
+                            <select id="priceMax" required>
+                                <option value="">Select max...</option>
+                                <option value="100000">$100,000</option>
+                                <option value="150000">$150,000</option>
+                                <option value="200000">$200,000</option>
+                                <option value="250000">$250,000</option>
+                                <option value="300000">$300,000</option>
+                                <option value="350000">$350,000</option>
+                                <option value="400000">$400,000</option>
+                                <option value="450000">$450,000</option>
+                                <option value="500000">$500,000</option>
+                                <option value="600000">$600,000</option>
+                                <option value="700000">$700,000</option>
+                                <option value="800000">$800,000</option>
+                                <option value="900000">$900,000</option>
+                                <option value="1000000">$1,000,000</option>
+                                <option value="1250000">$1,250,000</option>
+                                <option value="1500000">$1,500,000</option>
+                                <option value="1750000">$1,750,000</option>
+                                <option value="2000000">$2,000,000</option>
+                            </select>
+                        </div>
                     </div>
                     
                     <div class="checkbox-label">
@@ -351,7 +411,6 @@
                     <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251208161023481826000000" class="property-link" target="_blank">View Full Details →</a>
                 </div>
                 
-                
                 <div class="property">
                     <span class="badge reduced">PRICE REDUCED</span>
                     <h3>📍 337 S Wayne Avenue, Columbus, OH 43204</h3>
@@ -395,9 +454,18 @@
             
             const name = document.getElementById('name').value.trim();
             const sig = document.getElementById('signature').value.trim();
+            const priceMin = parseInt(document.getElementById('priceMin').value);
+            const priceMax = parseInt(document.getElementById('priceMax').value);
             
+            // Validate signature
             if (sig.toLowerCase() !== name.toLowerCase()) {
                 showError('Signature must match your full name exactly.');
+                return;
+            }
+            
+            // Validate price range
+            if (priceMin >= priceMax) {
+                showError('Maximum price must be greater than minimum price.');
                 return;
             }
             
@@ -411,6 +479,9 @@
                 phone: document.getElementById('phone').value.trim(),
                 address: document.getElementById('address').value.trim(),
                 exclusivity: document.getElementById('exclusivity').value,
+                priceMin: priceMin,
+                priceMax: priceMax,
+                priceRange: '$' + (priceMin/1000) + 'K - $' + (priceMax >= 1000000 ? (priceMax/1000000) + 'M' : (priceMax/1000) + 'K'),
                 signature: sig,
                 userAgent: navigator.userAgent,
                 timestamp: new Date().toISOString()
