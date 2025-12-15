@@ -3,120 +3,689 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src * data: blob:; frame-src *; style-src * 'unsafe-inline';">
-    <title>Exclusive Ohio Investment Properties</title>
+    <title>Specula Inc - Investment Portal</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 650px; margin: 0 auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 30px; text-align: center; }
-        .header h1 { margin: 0 0 10px 0; font-size: 28px; }
-        .content { padding: 30px; }
-        .highlight { background: #f8f9ff; border-left: 4px solid #667eea; padding: 20px; margin: 20px 0; border-radius: 5px; }
-        .highlight h3 { margin-top: 0; color: #667eea; }
-        .form-section { background: #fafafa; border: 2px solid #e0e0e0; border-radius: 8px; padding: 25px; margin: 30px 0; }
-        .form-section h2 { color: #333; font-size: 20px; margin-top: 0; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 14px; }
-        .price-range { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        .price-range .form-group { margin-bottom: 0; }
-        .price-helper { font-size: 12px; color: #666; margin-top: 5px; }
-        .checkbox-label { display: flex; align-items: flex-start; margin: 10px 0; font-size: 14px; }
-        .checkbox-label input { width: auto; margin-right: 10px; margin-top: 3px; cursor: pointer; }
-        .btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
-        .btn:hover { opacity: 0.9; }
-        .btn:disabled { background: #ccc; cursor: not-allowed; }
-        .properties { display: none; margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 8px; }
-        .properties h2 { color: #333; text-align: center; margin-bottom: 25px; font-size: 24px; }
-        .property { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .property h3 { color: #667eea; margin: 0 0 12px 0; font-size: 18px; }
-        .property-details { margin: 8px 0; color: #555; font-size: 14px; line-height: 1.5; }
-        .badge { display: inline-block; background: #ff6b6b; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
-        .badge.new { background: #51cf66; }
-        .badge.reduced { background: #ff6b6b; }
-        .badge.pending { background: #ffa500; }
-        .badge.coming { background: #17a2b8; }
-        .property-link { display: inline-block; margin-top: 12px; padding: 10px 20px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; }
-        .success { display: none; background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; font-weight: bold; }
-        .error { display: none; background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
-        .loading { display: none; text-align: center; padding: 20px; }
-        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #667eea; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .contact-box { margin-top: 30px; padding: 20px; background: white; border-radius: 8px; text-align: center; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: #0a0e27;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        /* Floating orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .orb1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #667eea 0%, transparent 70%);
+            top: -250px;
+            left: -250px;
+            animation: float1 20s ease-in-out infinite;
+        }
+        
+        .orb2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #764ba2 0%, transparent 70%);
+            bottom: -200px;
+            right: -200px;
+            animation: float2 15s ease-in-out infinite;
+        }
+        
+        .orb3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #f093fb 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            animation: float3 18s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, 100px) scale(1.1); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-80px, -80px) scale(1.15); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-40%, -60%) scale(1.2); }
+        }
+        
+        .container { 
+            max-width: 750px; 
+            width: 100%;
+            background: rgba(15, 20, 45, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 0 1px rgba(102, 126, 234, 0.2),
+                0 30px 90px rgba(0, 0, 0, 0.5),
+                0 0 120px rgba(102, 126, 234, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1;
+            animation: containerEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        @keyframes containerEntry {
+            from { 
+                opacity: 0; 
+                transform: scale(0.95) translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+        
+        /* Glowing border effect */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 32px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.5) 0%, 
+                rgba(118, 75, 162, 0.5) 50%, 
+                rgba(102, 126, 234, 0.5) 100%);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            padding: 60px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animated scan line */
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.8), transparent);
+            animation: scanLine 4s ease-in-out infinite;
+        }
+        
+        @keyframes scanLine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+        
+        .logo {
+            font-size: 64px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .header h1 { 
+            margin: 0 0 12px 0;
+            font-size: 38px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 0%, #a0aec0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .content { 
+            padding: 50px;
+            background: rgba(10, 14, 39, 0.5);
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 45px;
+            padding: 30px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+        
+        .intro h2 {
+            font-size: 28px;
+            margin-bottom: 18px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        
+        .intro p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-section { 
+            background: rgba(15, 20, 45, 0.6);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 24px;
+            padding: 45px;
+            position: relative;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .form-section h2 { 
+            color: #ffffff;
+            font-size: 24px;
+            margin: 0 0 12px 0;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .form-description {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+        
+        .form-group { 
+            margin-bottom: 26px;
+        }
+        
+        .form-group label { 
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.3px;
+        }
+        
+        .form-group input, .form-group select { 
+            width: 100%;
+            padding: 16px 18px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(15, 20, 45, 0.4);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(15, 20, 45, 0.7);
+            box-shadow: 
+                0 0 0 4px rgba(102, 126, 234, 0.1),
+                0 0 20px rgba(102, 126, 234, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+        
+        .form-group select option {
+            background: #0f142d;
+            color: #ffffff;
+            padding: 12px;
+        }
+        
+        .price-range { 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 26px;
+        }
+        
+        .price-range .form-group { 
+            margin-bottom: 0;
+        }
+        
+        .section-helper { 
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(102, 126, 234, 0.3), 
+                transparent);
+            margin: 35px 0;
+            position: relative;
+        }
+        
+        .section-divider::after {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 20, 45, 0.9);
+            color: rgba(102, 126, 234, 0.6);
+            padding: 0 15px;
+            font-size: 10px;
+        }
+        
+        .checkbox-label { 
+            display: flex;
+            align-items: flex-start;
+            margin: 16px 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            padding: 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-label:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        .checkbox-label input { 
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+        
+        .btn { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 4px 20px rgba(102, 126, 234, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover { 
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 30px rgba(102, 126, 234, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn:disabled { 
+            background: rgba(107, 114, 128, 0.3);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .success { 
+            display: none;
+            background: linear-gradient(135deg, rgba(72, 187, 120, 0.2) 0%, rgba(56, 161, 105, 0.2) 100%);
+            border: 1px solid rgba(72, 187, 120, 0.3);
+            color: #9ae6b4;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 16px;
+            box-shadow: 0 10px 40px rgba(72, 187, 120, 0.2);
+            animation: successPulse 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes successPulse {
+            0% { transform: scale(0.9); opacity: 0; }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .success-icon {
+            font-size: 56px;
+            margin-bottom: 15px;
+            animation: checkBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes checkBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .error { 
+            display: none;
+            background: linear-gradient(135deg, rgba(252, 129, 129, 0.2) 0%, rgba(245, 101, 101, 0.2) 100%);
+            border: 1px solid rgba(252, 129, 129, 0.3);
+            color: #fc8181;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 10px 40px rgba(252, 129, 129, 0.2);
+        }
+        
+        .loading { 
+            display: none;
+            text-align: center;
+            padding: 35px;
+        }
+        
+        .spinner { 
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        
+        .spinner::before,
+        .spinner::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+        }
+        
+        .spinner::before {
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .spinner::after {
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: #667eea;
+            border-right-color: #667eea;
+            animation: spinRotate 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+        
+        @keyframes spinRotate { 
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .footer {
+            background: rgba(10, 14, 39, 0.5);
+            padding: 35px 50px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            line-height: 1.8;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .footer-logo {
+            font-size: 36px;
+            margin-bottom: 15px;
+            filter: grayscale(50%);
+            opacity: 0.6;
+        }
+        
+        .contact-info {
+            margin-top: 18px;
+        }
+        
+        .contact-info strong {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            
+            .container { 
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            
+            .header, .content, .form-section, .footer { 
+                padding: 30px 25px;
+            }
+            
+            .price-range { 
+                grid-template-columns: 1fr;
+            }
+            
+            .logo { font-size: 48px; }
+            .header h1 { font-size: 28px; }
+        }
     </style>
 </head>
 <body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    
     <div class="container">
         <div class="header">
-            <h1>🏠 Exclusive Ohio Investment Properties</h1>
-            <p>Fresh Listings & Price Reductions - Ready for Your Review</p>
+            <div class="logo">🏛️</div>
+            <h1>SPECULA INC</h1>
+            <p>Investment Portal System</p>
         </div>
         
         <div class="content">
             <div class="intro">
-                <p><strong>Hello!</strong></p>
-                <p>I've compiled the latest investment opportunities across Ohio. These include new listings, recent price reductions, and back-on-market properties with strong potential returns.</p>
-            </div>
-            
-            <div class="highlight">
-                <h3>🎯 What You'll Find</h3>
-                <ul>
-                    <li><strong>300+ Properties</strong> across Central Ohio markets</li>
-                    <li><strong>Price Range:</strong> $80K - $2M (All property types)</li>
-                    <li><strong>Property Types:</strong> Single-family, multi-family, mixed-use</li>
-                    <li><strong>Fresh Data:</strong> Updated within the last 24 hours</li>
-                </ul>
+                <h2>Exclusive Investment Access</h2>
+                <p>Gain access to off-market real estate opportunities, strategic price reductions, and expired listings across Ohio's premier markets.</p>
             </div>
             
             <div class="form-section">
-                <h2>📝 Sign Agreement to View Full Property List</h2>
-                <p style="margin-bottom: 20px; color: #666; font-size: 14px;">To access the complete portfolio, please sign the intermediary agreement below.</p>
+                <h2><span>📋</span> Investment Agreement</h2>
+                <p class="form-description">Complete the secure form below to initiate your investment partnership and gain immediate access to our curated property portfolio.</p>
                 
                 <div class="error" id="errorMsg"></div>
                 <div class="loading" id="loading">
                     <div class="spinner"></div>
-                    <p>Processing your agreement...</p>
+                    <p style="color: rgba(255, 255, 255, 0.7); font-weight: 500;">Processing Agreement...</p>
                 </div>
                 
                 <form id="agreementForm">
                     <div class="form-group">
-                        <label>Your Full Name *</label>
-                        <input type="text" id="name" required>
+                        <label>Full Name *</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Email Address *</label>
-                        <input type="email" id="email" required>
+                        <input type="email" id="email" placeholder="john@example.com" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Phone Number *</label>
-                        <input type="tel" id="phone" required>
+                        <input type="tel" id="phone" placeholder="(555) 123-4567" required>
                     </div>
                     
                     <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" id="address">
+                        <label>Mailing Address</label>
+                        <input type="text" id="address" placeholder="123 Main Street, Columbus, OH 43215">
                     </div>
+                    
+                    <div class="section-divider"></div>
                     
                     <div class="form-group">
                         <label>Agreement Type *</label>
                         <select id="exclusivity" required>
-                            <option value="">Select...</option>
-                            <option value="non-exclusive">Non-Exclusive (Work with multiple finders)</option>
-                            <option value="exclusive">Exclusive (Work with me only)</option>
+                            <option value="">Select agreement type...</option>
+                            <option value="non-exclusive">Non-Exclusive Agreement</option>
+                            <option value="exclusive">Exclusive Partnership</option>
                         </select>
                     </div>
                     
-                    <div class="form-group" style="margin-top: 20px;">
-                        <label>💰 Your Investment Budget Range *</label>
-                        <div class="price-helper">Select your minimum and maximum property price</div>
+                    <div class="form-group">
+                        <label>Investment Strategy *</label>
+                        <select id="investmentType" required>
+                            <option value="">Select investment strategy...</option>
+                            <option value="fix-and-flip">Fix & Flip</option>
+                            <option value="short-term-rental">Short-Term Rental</option>
+                            <option value="long-term-rental">Long-Term Rental</option>
+                        </select>
+                        <div class="section-helper">Your primary investment approach</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Target Metro Area *</label>
+                        <select id="desiredMetro" required>
+                            <option value="">Select target market...</option>
+                            <option value="franklin-county">Franklin County (Columbus)</option>
+                            <option value="cuyahoga-county">Cuyahoga County (Cleveland)</option>
+                            <option value="hamilton-county">Hamilton County (Cincinnati)</option>
+                            <option value="summit-county">Summit County (Akron)</option>
+                            <option value="montgomery-county">Montgomery County (Dayton)</option>
+                            <option value="lucas-county">Lucas County (Toledo)</option>
+                            <option value="stark-county">Stark County (Canton)</option>
+                            <option value="butler-county">Butler County</option>
+                            <option value="lorain-county">Lorain County</option>
+                            <option value="mahoning-county">Mahoning County (Youngstown)</option>
+                            <option value="delaware-county">Delaware County</option>
+                            <option value="warren-county">Warren County</option>
+                            <option value="lake-county">Lake County</option>
+                            <option value="clermont-county">Clermont County</option>
+                            <option value="portage-county">Portage County</option>
+                            <option value="medina-county">Medina County</option>
+                            <option value="fairfield-county">Fairfield County</option>
+                            <option value="licking-county">Licking County</option>
+                            <option value="trumbull-county">Trumbull County</option>
+                            <option value="greene-county">Greene County</option>
+                            <option value="multiple">Multiple Markets</option>
+                        </select>
+                        <div class="section-helper">Primary geographic investment focus</div>
+                    </div>
+                    
+                    <div class="section-divider"></div>
+                    
+                    <div class="form-group">
+                        <label>💰 Investment Budget Range *</label>
+                        <div class="section-helper">Define your property acquisition budget</div>
                     </div>
                     
                     <div class="price-range">
                         <div class="form-group">
                             <label>Minimum Price *</label>
                             <select id="priceMin" required>
-                                <option value="">Select min...</option>
+                                <option value="">Select minimum...</option>
                                 <option value="80000">$80,000</option>
                                 <option value="100000">$100,000</option>
                                 <option value="150000">$150,000</option>
@@ -141,7 +710,7 @@
                         <div class="form-group">
                             <label>Maximum Price *</label>
                             <select id="priceMax" required>
-                                <option value="">Select max...</option>
+                                <option value="">Select maximum...</option>
                                 <option value="100000">$100,000</option>
                                 <option value="150000">$150,000</option>
                                 <option value="200000">$200,000</option>
@@ -164,284 +733,55 @@
                         </div>
                     </div>
                     
+                    <div class="section-divider"></div>
+                    
                     <div class="checkbox-label">
                         <input type="checkbox" id="c1" required>
-                        <span>I acknowledge $12,500 intermediary fee upon successful closing</span>
+                        <span>I acknowledge the $12,500 intermediary fee upon successful property closing</span>
                     </div>
                     <div class="checkbox-label">
                         <input type="checkbox" id="c2" required>
-                        <span>I understand the 180-day protected period</span>
+                        <span>I understand the 180-day exclusivity period for all introduced properties</span>
                     </div>
                     <div class="checkbox-label">
                         <input type="checkbox" id="c3" required>
-                        <span>I will conduct my own due diligence</span>
+                        <span>I will conduct independent due diligence on all investment opportunities</span>
                     </div>
                     <div class="checkbox-label">
                         <input type="checkbox" id="c4" required>
-                        <span>I agree to the full Intermediary Fee Agreement terms</span>
+                        <span>I agree to all terms outlined in the Intermediary Fee Agreement</span>
                     </div>
+                    
+                    <div class="section-divider"></div>
                     
                     <div class="form-group">
-                        <label>Electronic Signature (Type your full name) *</label>
-                        <input type="text" id="signature" placeholder="Type your full name to sign" required>
+                        <label>✍️ Electronic Signature *</label>
+                        <input type="text" id="signature" placeholder="Type your full legal name" required>
+                        <div class="section-helper">Your typed name constitutes a legally binding electronic signature</div>
                     </div>
                     
-                    <p style="font-size: 12px; color: #888; font-style: italic; margin: 15px 0;">By signing, you agree to the Real Estate Intermediary Fee Agreement terms</p>
-                    
-                    <button type="submit" class="btn" id="submitBtn">Sign Agreement & View All Properties →</button>
+                    <button type="submit" class="btn" id="submitBtn">Sign to Get Started →</button>
                 </form>
             </div>
             
             <div class="success" id="success">
-                ✅ Agreement Signed Successfully! You'll receive a confirmation email shortly. Scroll down to view all properties.
+                <div class="success-icon">✓</div>
+                <div style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Agreement Successfully Executed</div>
+                <p style="margin-top: 12px; font-size: 14px; opacity: 0.85; line-height: 1.6;">Confirmation has been sent to your email. Our investment team will contact you within 24 hours with curated opportunities matching your criteria.</p>
             </div>
-            
-            <div class="properties" id="props">
-                <h2>🔓 Your Exclusive Ohio Property Portfolio</h2>
-                <p style="text-align: center; color: #666; margin-bottom: 30px;">300+ Investment Opportunities - Updated Today</p>
-                
-                <!-- HOTTEST NEW LISTINGS -->
-                <div class="property">
-                    <span class="badge new">NEW LISTING - 9 MINS AGO</span>
-                    <h3>📍 6568 Shenandoah Drive, Reynoldsburg, OH 43068</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $289,900<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Neighborhood:</strong> Glen Meadows<br>
-                        <strong>MLS #:</strong> 225045429<br>
-                        <strong>Status:</strong> New Listing
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251211164516304062000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge reduced">PRICE REDUCED - 20 MINS AGO</span>
-                    <h3>📍 418 Gill Avenue, Galion, OH 44833</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $209,999<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 5<br>
-                        <strong>MLS #:</strong> 225042899<br>
-                        <strong>Status:</strong> Active - Price Reduced
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251113145956254856000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge new">NEW LISTING - 5 HOURS AGO</span>
-                    <h3>📍 1069 Clovernoll Court, Marysville, OH 43040</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $300,000<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225045121<br>
-                        <strong>Status:</strong> New Listing
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251205230235851885000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge new">NEW LISTING - 5 HOURS AGO</span>
-                    <h3>📍 1929 Holly Ridge Road, Columbus, OH 43219</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $319,900<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225045337<br>
-                        <strong>Status:</strong> New Listing
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251211102057496015000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge coming">COMING SOON - 9 HOURS AGO</span>
-                    <h3>📍 2566 Edencreek Lane, Columbus, OH 43207</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $265,000<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225045418<br>
-                        <strong>Status:</strong> Coming Soon
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251211213341026710000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge reduced">PRICE REDUCED - 15 HOURS AGO</span>
-                    <h3>📍 12 Mcguffey Lane, Athens, OH 45701</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $339,800<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225035727<br>
-                        <strong>Status:</strong> Active - Price Reduced
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20250919181947388567000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge new">NEW LISTING - 16 HOURS AGO</span>
-                    <h3>📍 26938 County Road 1, Coshocton, OH 43812</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $265,500<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225045400<br>
-                        <strong>Status:</strong> New Listing
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251210162332249108000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge">BACK ON MARKET - 16 HOURS AGO</span>
-                    <h3>📍 5465 Old Logan Road SE, Lancaster, OH 43130</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $299,900<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225040481<br>
-                        <strong>Status:</strong> Back on Market
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251024184157911002000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge pending">PENDING - 15 HOURS AGO</span>
-                    <h3>📍 498 Clarendon Street, Newark, OH 43055</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $253,500<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 1-car<br>
-                        <strong>MLS #:</strong> 225043903<br>
-                        <strong>Status:</strong> Pending (Great comp data!)
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251122003447657843000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge new">NEW LISTING - 17 HOURS AGO</span>
-                    <h3>📍 2752 Woodford Drive, Springfield, OH 45503</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $349,900<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 5<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225045384<br>
-                        <strong>Status:</strong> New Listing
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251128203346494426000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge new">NEW LISTING - 18 HOURS AGO</span>
-                    <h3>📍 401 Marcus Street, Mansfield, OH 44903</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $214,900<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225045376<br>
-                        <strong>Status:</strong> New Listing - GREAT VALUE
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251211164511977374000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge new">NEW LISTING - 22 HOURS AGO</span>
-                    <h3>📍 790 W Locust Street, Newark, OH 43055</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $250,000<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225045329<br>
-                        <strong>Status:</strong> New Listing
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251211143737241452000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge reduced">PRICE REDUCED - 23 HOURS AGO</span>
-                    <h3>📍 751 Liberty Road, Delaware, OH 43015</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $269,900<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 1-car<br>
-                        <strong>MLS #:</strong> 225043935<br>
-                        <strong>Status:</strong> Active - Price Reduced
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251122144421570650000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge coming">COMING SOON - 23 HOURS AGO</span>
-                    <h3>📍 1559 Pyle Place, Columbus, OH 43227</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $229,900<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Neighborhood:</strong> Lea-Wood Gardens<br>
-                        <strong>MLS #:</strong> 225045319<br>
-                        <strong>Status:</strong> Coming Soon
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251211141055009238000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge new">NEW LISTING - 1 DAY AGO</span>
-                    <h3>📍 1744 Riverbirch Drive, Columbus, OH 43229</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $299,900<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Neighborhood:</strong> Forest Park East<br>
-                        <strong>Garage:</strong> 2-car<br>
-                        <strong>MLS #:</strong> 225045160<br>
-                        <strong>Status:</strong> New Listing
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20251208161023481826000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <div class="property">
-                    <span class="badge reduced">PRICE REDUCED</span>
-                    <h3>📍 337 S Wayne Avenue, Columbus, OH 43204</h3>
-                    <div class="property-details">
-                        <strong>Price:</strong> $246,400<br>
-                        <strong>Type:</strong> Single Family Residence<br>
-                        <strong>Bedrooms:</strong> 4<br>
-                        <strong>Garage:</strong> 1-car<br>
-                        <strong>MLS #:</strong> 225010121<br>
-                        <strong>Status:</strong> Active - Price Reduced
-                    </div>
-                    <a href="https://my.flexmls.com/JuliAnnKnecht/search/contacts/20251130144211650715000000/newsfeeds/listings/20250401142041169500000000" class="property-link" target="_blank">View Full Details →</a>
-                </div>
-                
-                <!-- COMPLETE PORTFOLIO ACCESS -->
-                <div style="background: white; padding: 25px; margin: 30px 0; border-radius: 8px; border: 2px solid #667eea; text-align: center;">
-                    <h3 style="color: #667eea; margin-top: 0;">📊 Complete Portfolio Access</h3>
-                    <p style="color: #555; margin-bottom: 20px;">This preview shows 17 of 300+ properties. Access the complete spreadsheets with all listings, comps, and off-market deals:</p>
-                    <a href="https://docs.google.com/spreadsheets/d/YOUR_MAIN_SPREADSHEET_ID/edit" class="property-link" target="_blank" style="font-size: 16px; display: block; margin: 10px 0;">View Complete MLS Property Portfolio (250+ Listings) →</a>
-                    <a href="https://docs.google.com/spreadsheets/d/YOUR_OFFMARKET_SPREADSHEET_ID/edit" class="property-link" target="_blank" style="font-size: 16px; display: block; margin: 10px 0;">View Off-Market Property Portfolio (30+ Listings) →</a>
-                </div>
-                
-                <div class="contact-box">
-                    <h3 style="color: #667eea;">📞 Ready to Schedule Property Tours?</h3>
-                    <p style="color: #555; line-height: 1.6;">
-                        Let's discuss these opportunities and schedule tours for properties that match your investment criteria.<br><br>
-                        <strong>Phone:</strong> (610) 653-1493<br>
-                        <strong>Email:</strong> specula.inc.official@gmail.com<br>
-                        <strong>Response Time:</strong> Within 2 hours during business days
-                    </p>
-                </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-logo">🏛️</div>
+            <div style="margin-bottom: 8px;"><strong>SPECULA INC</strong></div>
+            <div style="font-size: 12px; margin-bottom: 15px; opacity: 0.7;">Professional Real Estate Intermediary Services</div>
+            <div class="contact-info">
+                <strong>Contact:</strong> (610) 653-1493<br>
+                <strong>Email:</strong> specula.inc.official@gmail.com<br>
+                <strong>Response:</strong> Within 2 hours (Business Days)
+            </div>
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(102, 126, 234, 0.2); font-size: 11px; opacity: 0.5;">
+                © 2024 Specula Inc. All Rights Reserved. | Secure Portal v2.0
             </div>
         </div>
     </div>
@@ -457,15 +797,13 @@
             const priceMin = parseInt(document.getElementById('priceMin').value);
             const priceMax = parseInt(document.getElementById('priceMax').value);
             
-            // Validate signature
             if (sig.toLowerCase() !== name.toLowerCase()) {
-                showError('Signature must match your full name exactly.');
+                showError('Electronic signature must match your full name exactly.');
                 return;
             }
             
-            // Validate price range
             if (priceMin >= priceMax) {
-                showError('Maximum price must be greater than minimum price.');
+                showError('Maximum price must exceed minimum price.');
                 return;
             }
             
@@ -479,6 +817,8 @@
                 phone: document.getElementById('phone').value.trim(),
                 address: document.getElementById('address').value.trim(),
                 exclusivity: document.getElementById('exclusivity').value,
+                investmentType: document.getElementById('investmentType').value,
+                desiredMetro: document.getElementById('desiredMetro').value,
                 priceMin: priceMin,
                 priceMax: priceMax,
                 priceRange: '$' + (priceMin/1000) + 'K - $' + (priceMax >= 1000000 ? (priceMax/1000000) + 'M' : (priceMax/1000) + 'K'),
@@ -534,11 +874,8 @@
         function handleSuccess() {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('success').style.display = 'block';
-            document.getElementById('props').style.display = 'block';
-            
-            setTimeout(() => {
-                document.getElementById('props').scrollIntoView({ behavior: 'smooth' });
-            }, 300);
+            document.getElementById('agreementForm').style.display = 'none';
+            document.getElementById('success').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
         
         function showError(message) {
@@ -546,6 +883,7 @@
             document.getElementById('errorMsg').style.display = 'block';
             document.getElementById('loading').style.display = 'none';
             document.getElementById('submitBtn').disabled = false;
+            document.getElementById('errorMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     </script>
 </body>
